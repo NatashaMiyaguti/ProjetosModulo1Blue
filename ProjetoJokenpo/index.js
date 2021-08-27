@@ -40,7 +40,7 @@ const jogojokenpo = async () => {
     for (let n = 0; n < rodadas; n++) {
       await sleep(1000);
       console.log("\nVamos começar a rodada!".blue);
-      let computador = Math.floor(Math.random()) * 3 + 1;
+      let computador = Math.floor(Math.random() * 3 + 1);
       await sleep(1000);
       console.log("\n[1] Pedra".yellow);
       await sleep(1000);
@@ -51,7 +51,7 @@ const jogojokenpo = async () => {
       let escolha = +prompt("\nQual opção você escolhe(escolha o número): ");
       await sleep(1000);
 
-      if (escolha == computador) {
+      if (escolha == 1 && computador == 1) {
         empate += 1;
         console.log(
           `\nVocê escolheu [${escolha}] Pedra, e o computador escolheu [1] Pedra.`
@@ -72,6 +72,13 @@ const jogojokenpo = async () => {
         );
         await sleep(2000);
         console.log("Você ganhou!!!".green);
+      } else if (escolha == 2 && computador == 2) {
+        empate += 1;
+        console.log(
+          `\nVocê escolheu [${escolha}] Papel, e o computador escolheu [2] Papel.`
+        );
+        await sleep(2000);
+        console.log("Deu empate!!!".yellow);
       } else if (escolha == 2 && computador == 3) {
         cont_computador += 1;
         console.log(
@@ -89,7 +96,7 @@ const jogojokenpo = async () => {
       } else if (escolha == 3 && computador == 1) {
         cont_computador += 1;
         console.log(
-          `Você escolheu [{escolha}] Tesoura, e o computador escolheu [1] Pedra.`
+          `Você escolheu [${escolha}] Tesoura, e o computador escolheu [1] Pedra.`
         );
         await sleep(2000);
         console.log("Você perdeu!!!".red);
@@ -100,6 +107,13 @@ const jogojokenpo = async () => {
         );
         await sleep(2000);
         console.log("Você ganhou!!!".green);
+      } else if (escolha == 3 && computador == 3) {
+        empate += 1;
+        console.log(
+          `\nVocê escolheu [${escolha}] Tesoura, e o computador escolheu [3] Tesoura.`
+        );
+        await sleep(2000);
+        console.log("Deu empate!!!".yellow);
       } else console.log(`Você digitou [${escolha}]. Opção inválida!`);
     }
     console.log("\n");
@@ -108,8 +122,8 @@ const jogojokenpo = async () => {
     await sleep(2000);
     console.log(
       `\n Você venceu ${cont_jogagor} rodada(s).\n
-    Você perdeu ${cont_computador} rodada(s).\n
-    Você empatou ${empate} rodada(s)`.blue
+Você perdeu ${cont_computador} rodada(s).\n
+Você empatou ${empate} rodada(s)`.blue
     );
     sleep(1000);
     if (cont_jogagor > cont_computador) {
