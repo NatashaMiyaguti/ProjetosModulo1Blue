@@ -16,7 +16,9 @@ const jogoDetetive = async () => { //criando função assíncrona para usar a fu
 
     console.log (' Seja bem vindo!!!\n'.red);
 
-    const jogo = prompt ('Vamos jogar um jogo? [S/N]: ').slice(0,1). toUpperCase();
+    const jogo = prompt("Vamos jogar um jogo? [S/N]: ")
+      .slice(0, 1)
+      .toUpperCase();
     if (jogo == 'N'){
         console.log ('Até a próxima!'.yellow);
         process.exit();  //chamando a função que para fechar o prgrama
