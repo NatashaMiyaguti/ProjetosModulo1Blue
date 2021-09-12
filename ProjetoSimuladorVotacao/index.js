@@ -1,9 +1,9 @@
 //  Projeto 04 - Simulador de votação:# Crie um programa que simule um sistema de votação, ele deve receber votos até
 //  que o usuário diga que não tem mais ninguém para votar, esse programa precisa ter
 //  duas funções:
-//  A 1° Função precisa ser chamada autoriza_voto() ela vai receber como parâmetro o# ano de nascimento de uma pessoa que será digitado pelo usuário, retornando um# valor literal indicando se uma pessoa tem voto NEGADO, OPCIONAL e# OBRIGATÓRIO nas eleições.
+//  A 1° Função precisa ser chamada autorizaVoto() ela vai receber como parâmetro o# ano de nascimento de uma pessoa que será digitado pelo usuário, retornando um# valor literal indicando se uma pessoa tem voto NEGADO, OPCIONAL e# OBRIGATÓRIO nas eleições.
 //  A 2° Função será a votacao(), ela vai receber dois parâmetros, autorização (que virá
-//  da função autoriza_voto()) e o voto que é o número que a pessoa votou.
+//  da função autorizaVoto()) e o voto que é o número que a pessoa votou.
 //  Se ela não puder votar, a 2° função terá que retornar “Você não pode votar”, caso o
 //  contrário a 2° função deve validar o número que a pessoa escolheu, ela pode
 //  escolher de 1 a 5 (crie 3 candidatos para a votação):
@@ -96,7 +96,7 @@ const exibirResultados = async (candidatos) => {
   }
 };
 
-const votacao = async () => {
+const election = async () => {
   //criando função assíncrona para usar a função sleep.
 
   var anoAtual = new Date().getFullYear();
@@ -132,7 +132,7 @@ const votacao = async () => {
     { nome: "Voto em Branco", voto: 0, numero: 5 },
   ];
 
-  function autoriza_voto(ano) {
+  function autorizaVoto(ano) {
     let idade = anoAtual - ano; //para colocar o ano atual
     if (idade < 16) {
       return "NEGADO";
@@ -171,7 +171,7 @@ const votacao = async () => {
     `);
     await sleep(1000);
     let voto_escolhido = +prompt("Digite o numero do seu voto: ");
-    votacao(autoriza_voto(ano), voto_escolhido);
+    votacao(autorizaVoto(ano), voto_escolhido);
 
     let continuar = prompt(`Deseja continuar[S/N]: \n`)
       .toUpperCase()
@@ -183,4 +183,4 @@ const votacao = async () => {
 
   exibirResultados(candidatos);
 };
-votacao();
+election();
