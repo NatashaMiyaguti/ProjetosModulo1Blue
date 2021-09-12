@@ -28,6 +28,74 @@ const color = require("colors"); //colocando cores nas strings
 const prompt = require("prompt-sync")();
 const _ = require("lodash"); //vamos usar a função groupBy pra agrupar pelo numero jogado no dado
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); //criando uma função sleep
+const exibirResultados = async (candidatos) => {
+  let ranking_final = _.groupBy(candidatos, "voto");
+
+  let votos = Object.keys(ranking_final);
+  let agrupamentoOrdenado = votos.sort(function (a, b) {
+    return b - a;
+  });
+
+  let total_votos = _.sumBy(candidatos, "voto");
+
+  if (total_votos > 0) {
+    // valida se houve votos
+    for (let posicao in agrupamentoOrdenado) {
+      let quantidadeVotos = agrupamentoOrdenado[posicao];
+      for (let candidato of ranking_final[quantidadeVotos]) {
+        let porcentagem = Math.round((candidato.voto / total_votos) * 100); //transformei a quantidade de votos em %
+        console.log(
+          `Com ${candidato.voto} votos, o candidato ${candidato.nome} com ${porcentagem}%`
+        );
+      }
+    }
+
+    let somente_candidatos = candidatos.filter(
+      (candidato) => candidato.numero != 4 && candidato.numero != 5
+    ); // cria um filtro p pegar os numeros de votos q não sejam 4 e 5
+    let candidatosAgrupados = _.groupBy(somente_candidatos, "voto");
+
+    let chaves = Object.keys(candidatosAgrupados);
+    let candidatoOrdenado = chaves.sort(function (a, b) {
+      return b - a;
+    });
+
+    let total_votosValidos = _.sumBy(somente_candidatos, "voto");
+    if (total_votosValidos > 0) {
+      //valida os votos validos
+      for (let posicao in candidatoOrdenado) {
+        let quantidadeVotos = candidatoOrdenado[posicao];
+        let porcentagem = Math.round((quantidadeVotos / total_votos) * 100);
+        console.log(`Com ${porcentagem} % de votos`);
+
+        for (let candidato of candidatosAgrupados[quantidadeVotos]) {
+          console.log(`${candidato.nome}`);
+        }
+      }
+
+      let vitoria = candidatosAgrupados[candidatoOrdenado[0]];
+
+      if (vitoria.length > 1) {
+        //caso tenho mais de um candidato na posicao 1#
+        console.log(
+          `Houve empate! Aguardem data para nova votação, entre os candidatos:`
+        );
+        for (i of vitoria) {
+          console.log(i.nome);
+        }
+      } else {
+        console.log(`O(A) vencedor(a) das eleições é:\n`);
+        await sleep(1000);
+        console.log(`${vitoria[0].nome}`); //mostra qnd ha um unico vencedor#
+      }
+    } else {
+      console.log("\nNão houve votos válidos.");
+    }
+  } else {
+    console.log("\nSem votos computados.");
+  }
+};
+
 const votacao = async () => {
   //criando função assíncrona para usar a função sleep.
 
@@ -113,70 +181,6 @@ const votacao = async () => {
     }
   }
 
-  let ranking_final = _.groupBy(candidatos, "voto");
-
-  let votos = Object.keys(ranking_final);
-  let agrupamentoOrdenado = votos.sort(function (a, b) {
-    return b - a;
-  });
-
-  let total_votos = _.sumBy(candidatos, "voto");
-
-  if (total_votos > 0) {
-    // valida se houve votos
-    for (let posicao in agrupamentoOrdenado) {
-      let quantidadeVotos = agrupamentoOrdenado[posicao];
-      for (let candidato of ranking_final[quantidadeVotos]) {
-        let porcentagem = Math.round((candidato.voto / total_votos) * 100); //transformei a quantidade de votos em %
-        console.log(
-          `Com ${candidato.voto} votos, o candidato ${candidato.nome} com ${porcentagem}%`
-        );
-      }
-    }
-
-    let somente_candidatos = candidatos.filter(
-      (candidato) => candidato.numero != 4 && candidato.numero != 5
-    ); // cria um filtro p pegar os numeros de votos q não sejam 4 e 5
-    let candidatosAgrupados = _.groupBy(somente_candidatos, "voto");
-
-    let chaves = Object.keys(candidatosAgrupados);
-    let candidatoOrdenado = chaves.sort(function (a, b) {
-      return b - a;
-    });
-
-    let total_votosValidos = _.sumBy(somente_candidatos, "voto");
-    if (total_votosValidos > 0) {
-      //valida os votos validos
-      for (let posicao in candidatoOrdenado) {
-        let quantidadeVotos = candidatoOrdenado[posicao];
-        let porcentagem = Math.round((quantidadeVotos / total_votos) * 100);
-        console.log(`Com ${porcentagem} % de votos`);
-
-        for (let candidato of candidatosAgrupados[quantidadeVotos]) {
-          console.log(`${candidato.nome}`);
-        }
-      }
-
-      let vitoria = candidatosAgrupados[candidatoOrdenado[0]];
-
-      if (vitoria.length > 1) {
-        //caso tenho mais de um candidato na posicao 1#
-        console.log(
-          `Houve empate! Aguardem data para nova votação, entre os candidatos:`
-        );
-        for (i of vitoria) {
-          console.log(i.nome);
-        }
-      } else {
-        console.log(`O(A) vencedor(a) das eleições é:\n`);
-        await sleep(1000);
-        console.log(`${vitoria[0].nome}`); //mostra qnd ha um unico vencedor#
-      }
-    } else {
-      console.log("\nNão houve votos válidos.");
-    }
-  } else {
-    console.log("\nSem votos computados.");
-  }
+  exibirResultados(candidatos);
 };
 votacao();
