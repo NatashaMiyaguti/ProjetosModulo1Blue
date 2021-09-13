@@ -16,13 +16,6 @@
 //  ● O total de votos em branco;
 //  ● Qual candidato venceu a votação
 
-// from datetime import datetime #importa a data atual
-// from operator import itemgetter   #para ordenar o dicionario#
-// from collections import defaultdict   #agrupa dados do dicionario#
-// from random import randint
-// from time import sleep
-// from rich import print   #importa as cores e emotion, somente pode ser usados nos prints#
-// from tqdm import tqdm   #importa a barra de carregamento#
 
 const color = require("colors"); //colocando cores nas strings
 const prompt = require("prompt-sync")();
@@ -66,10 +59,10 @@ const exibirResultados = async (candidatos) => {
       for (let posicao in candidatoOrdenado) {
         let quantidadeVotos = candidatoOrdenado[posicao];
         let porcentagem = Math.round((quantidadeVotos / total_votos) * 100);
-        console.log(`Com ${porcentagem} % de votos`);
+        console.log(`Com ${porcentagem} % de votos`.blue);
 
         for (let candidato of candidatosAgrupados[quantidadeVotos]) {
-          console.log(`${candidato.nome}`);
+          console.log(`${candidato.nome}`.blue);
         }
       }
 
@@ -84,15 +77,15 @@ const exibirResultados = async (candidatos) => {
           console.log(i.nome);
         }
       } else {
-        console.log(`O(A) vencedor(a) das eleições é:\n`);
+        console.log(`O(A) vencedor(a) das eleições é:\n`.blue);
         await sleep(1000);
         console.log(`${vitoria[0].nome}`); //mostra qnd ha um unico vencedor#
       }
     } else {
-      console.log("\nNão houve votos válidos.");
+      console.log("\nNão houve votos válidos.".blue);
     }
   } else {
-    console.log("\nSem votos computados.");
+    console.log("\nSem votos computados.".blue);
   }
 };
 
@@ -102,28 +95,23 @@ const election = async () => {
   var anoAtual = new Date().getFullYear();
 
   console.log(`
+     _________
+    | ======= |
+   | __________|
+  | ___________ |
+  | |         | |
+  | | VOTAÇÃO | |
+  | |_________| |
+  (____________/   
+  [ """"""""""" ]                      
+ [ ::::::::::::: ]                  
+[_________________]
+  
+  
+  `);
 
-   _____________________
-  /                 '   \
-  |  .-----------.  |   |-----.
-  |  |           |  |   |-----|
-  |  | "votação" |  |   |-----|
-  |  |           |  |   |-----|
-  |  |           |  |   |-----|
-  |  '-----------'  |   |-----'/\\
-   \________________/___'     /  \\
-      /                      / / /
-     / //               //  / / /
-    /                      / / /
-   / _/_/_/_/_/_/_/_/_/_/ /   /
-  / _/_/_/_/_/_/_/_/_/_/ /   /
- / _/_/_/_______/_/_/_/ / __/
-/______________________/ /    
-\______________________\/
-
-
-`);
-
+  
+  await sleep(2000);
   let candidatos = [
     { nome: "Joao", voto: 0, numero: 1 },
     { nome: "Pedro", voto: 0, numero: 2 },
@@ -144,23 +132,23 @@ const election = async () => {
   }
 
   function votacao(autorizacao, voto) {
-    if (!(voto in [1, 2, 3, 4, 5])) {
+    if (!(voto in [1, 2, 3, 4, 5, 6])) {
       //verifica se o numero não esta dentro da lista
-      console.log("Opção inválida");
+      console.log("Opção inválida". blue);
     } else if (autorizacao == "OPCIONAL" || autorizacao == "OBRIGATORIO") {
       console.log(`\nVoto computado.\n  Obrigada.\n`);
       let candidato = candidatos.find((x) => x.numero === voto);
       candidato.voto += 1;
     } else {
-      console.log("Você não pode votar");
+      console.log("Você não pode votar".blue);
     }
   }
 
   while (true) {
-    let ano = +prompt("Digite o ano de nascimento: ");
+    let ano = +prompt("Digite o ano de nascimento: ".blue);
     await sleep(1000);
 
-    console.log(`\n Escolha seu voto:`);
+    console.log(`\n Escolha seu voto:`.blue);
     await sleep(1000);
     console.log(`
     1 - João 
@@ -170,10 +158,10 @@ const election = async () => {
     5 - Voto em Branco
     `);
     await sleep(1000);
-    let voto_escolhido = +prompt("Digite o numero do seu voto: ");
+    let voto_escolhido = +prompt("Digite o numero do seu voto: ".blue);
     votacao(autorizaVoto(ano), voto_escolhido);
 
-    let continuar = prompt(`Deseja continuar[S/N]: \n`)
+    let continuar = prompt(`Deseja continuar[S/N]:`.blue)
       .toUpperCase()
       .slice(0, 1);
     if (continuar == "N") {
