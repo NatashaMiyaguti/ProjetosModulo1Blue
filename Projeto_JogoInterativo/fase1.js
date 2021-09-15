@@ -23,13 +23,16 @@ class Fase1 extends Fase {
     this.helper.Sleep(1000);
     console.log(`O que ${this.personagem.nome} decide fazer? `.blue);
     this.helper.Sleep(1000);
-    const acao1 = +prompt(`
+    const acao1 = this.helper.ValidaEntrada(
+      `
 
         [1] Procurar comida
         [2] Tomar um banho
         [3] Voltar a dormir
 
--> `);
+-> `,
+      [1, 2, 3]
+    );
 
     if (acao1 == 1) {
       this.ProcurarComida();
@@ -43,7 +46,7 @@ class Fase1 extends Fase {
     } else {
       this.helper.Sleep(1000);
       console.log(
-        `Ahh o dia está tão preguiçoso, melhor voltar pra cama, já que não posso ir em nenhum lugar com essa pandemia! pensa ${this.personagem.nome}.`
+        `"Ahh o dia está tão preguiçoso, melhor voltar pra cama, já que não posso ir em nenhum lugar com essa pandemia!" pensa ${this.personagem.nome}.`
           .blue
       );
       this.relogio.AvancaTempo(180);
@@ -54,22 +57,25 @@ class Fase1 extends Fase {
     this.relogio.MostrarStatus();
     this.helper.Sleep(1000);
     console.log(
-      `${this.personagem.nome}, recebe uma msg no celular de Pedro, um amigo antigo,chamando-o (a) para ir no parque, insiste que ela vá dizendo que só vai mais 2 pessoas. Em seguida Ana, uma outra amiga, manda mensagem chamando ${this.personagem.nome} para ir no shopping ajudar ela a escolher uma roupa para dar de presente para sua mãe que irá fazer aniversário, em seguida a convida para a festa.\n`
+      `${this.personagem.nome}, recebe uma msg no celular de Pedro, um amigo antigo, chamando-o (a) para ir no parque. Insiste que ela vá dizendo que só vai mais 2 pessoas. Em seguida Ana, uma outra amiga, manda mensagem chamando ${this.personagem.nome} para ir no shopping ajudar ela a escolher uma roupa para dar de presente para sua mãe que irá fazer aniversário, em seguida te convida para a festa.\n`
         .blue
     );
     let saiuDeCasa = false;
     this.helper.Sleep(1000);
     console.log(`O que ${this.personagem.nome} vai fazer? \n`.blue);
-    const acao2 = +prompt(`
+    const acao2 = this.helper.ValidaEntrada(
+      `
 
         [1] ${this.personagem.nome} acha que é melhor ficar em casa, o contato com outras pessoas pode ser perigoso. "Mesmo com os casos diminuindo acho melhor não sair de casa", pensa.
-        [2] ${this.personagem.nome} se ve tentando(a) a ir no parque, faz tanto tempo que não saí, que não toma um ar. E com esse pensamento acaba aceitando o convite.
-        [3] "Ahh a quanto tempo não vou ao shopping, talvez um ano", pensa ${this.personagem.nome}. Acho que não não tem problema ir e bater uma perna, e ainda poder comer um bolo ver a mãe da Ana uma senhora tão querida. Com certeza vou aceitar
--> \n`);
+        [2] ${this.personagem.nome} se vê tentando(a) a ir no parque, faz tanto tempo que não sai, que não toma um ar. E com esse pensamento acaba aceitando o convite.
+        [3] "Ahh a quanto tempo não vou ao shopping, talvez um ano", pensa ${this.personagem.nome}. Acho que não não tem problema ir e bater uma perna, e ainda poder comer um bolo e ver a mãe da Ana, uma senhora tão querida. Com certeza vou aceitar!
+-> \n`,
+      [1, 2, 3]
+    );
     if (acao2 == 1) {
       this.helper.Sleep(1000);
       console.log(
-        `Com certeza é uma boa opção ficar em casa, entretanto ficar somente em casa pode não ser uma boa idéia. Uma recente pesquisa aponta um aumento de 90% os casos de depressão. E praticamente dobrou o numero de casos em relação ao mesmo periodo do ano passado.\n`
+        `Com certeza é uma boa opção ficar em casa, entretanto ficar somente em casa pode não ser uma boa idéia. Uma recente pesquisa aponta um aumento de 90% os casos de depressão. E praticamente dobrou o número de casos em relação ao mesmo periodo do ano passado.\n`
           .blue
       );
       this.personagem.MudaFome(-20);
@@ -77,16 +83,16 @@ class Fase1 extends Fase {
     } else if (acao2 == 2) {
       this.helper.Sleep(1000);
       console.log(
-        `Essa ida no parque pode não parecer uma boa ideia. Mas faça esse tipo de passeio em grupos pequenos, e com pessoas que estão se protegendo de forma adequada. Mantendo um certo distanciamento, ainda mais em um lugar aberto como um parque pode ser uma atividade viável. Temos que nos proteger, e infelizmente a melhor forma é o isolamente, evitar sair, mas com a pandemia o índice de depressão estão mais que dobrando em relçaõ ao mesmo período do ano passado. Então proteja do vírus, mas pense também na sua saúde emocionales.\n`
+        `Essa ida no parque pode não parecer uma boa ideia. Mas faça esse tipo de passeio em grupos pequenos, e com pessoas que estão se protegendo de forma adequada. Mantendo um certo distanciamento, ainda mais em um lugar aberto como um parque pode ser uma atividade viável. Temos que nos proteger, e infelizmente a melhor forma é o isolamente, evitar sair, mas com a pandemia o índice de depressão estão mais que dobrando em relção ao mesmo período do ano passado. Então proteja-se do vírus, mas pense também na sua saúde emocional.\n`
           .blue
       );
       saiuDeCasa = true;
       this.personagem.MudaFome(-20);
-      this.personagem.MudaSaude(-10);
+      this.personagem.MudaSaude(-5);
     } else {
       this.helper.Sleep(1000);
       console.log(
-        `Essa ida no shopping pode calhar, mas é realmente necessária? E ainda seguir para uma festa, num lugar fechado, com outras pessoas e algumas mai2,6s idosas. Estudos mostram que as gotículas geradas por fala, espirro ou tosse pode permanecer suspensas no ar em lugares fechados, durante longos períodos, isso explica o porque o contágio do COVID-19 é tão rápido. Entretanto se optar por sair, não esqueça o uso da máscara, alcool em gel e o distanciamento de pelo menos 1.5m.\n`
+        `Essa ida no shopping pode calhar, mas é realmente necessária? E ainda seguir para uma festa, num lugar fechado, com outras pessoas e algumas mais idosas. Estudos mostram que as gotículas geradas por fala, espirro ou tosse pode permanecer suspensas no ar em lugares fechados, durante longos períodos. Isso explica o porque o contágio do COVID-19 é tão rápido. Entretanto se optar por sair, não esqueça o uso da máscara, alcool em gel e o distanciamento de pelo menos 1.5m.\n`
           .blue
       );
       saiuDeCasa = true;
@@ -106,8 +112,8 @@ class Fase1 extends Fase {
       const acao3 = prompt(`
 
         [1] Ir direto tomar banho
-        [2] Passar spray de alcool na roupa
-        [3] Passar alcool
+        [2] Passar spray de álcool na roupa
+        [3] Passar álcool
         [4] Lavar as roupas que usou enquanto estava fora
         [5] Lavar as mãos
         [6] Tirar os sapatos na porta
@@ -132,11 +138,11 @@ class Fase1 extends Fase {
       } else {
         this.helper.Sleep(1000);
         console.log(
-          `Infelizmente você não acertou a melhor ordem! Existe várias formas de previnir que o vírus não entre na sua casa, mas se você teve que sair, seguindo alguns passos você pode manter sua casa mais segura.
+          `Infelizmente você não acertou a melhor ordem! Existem várias formas de previnir que o vírus não entre na sua casa, mas se você teve que sair, seguindo alguns passos você pode manter sua casa mais segura.
 
-        Em 1° lugar é muito importante deixar seu calçado do lado de fora, isso ja é comum em muitos países, até mesmo por higiêne,  não sabemos exatamente no que pisamos na rua, você pode levar para dentro da sua casa o vírus, mas também baxtérias, e vermes que podem ser prejudicial a sua família a até mesmo aos pets(caso tenha)
-        Em 2° lugar, é importante passar o alcool gel pois você provávelmente precisará abrir alguma, porta, ou pegar em alguma coisa. O ideal seria não encostar nada, mas temos que ser realistas e sabemos que não.
-        Em 3° lugar, separar as roupas das demais, é importante não deixar ela jogada ou em contato com outras coisas. Baseado em pesquisas patógenos, acreditam que o COVID-19 de maneira geral pode sobreviver em tecidos de 72 96 horas.
+        Em 1° lugar é muito importante deixar seu calçado do lado de fora, isso ja é comum em muitos países, até mesmo por higiene, não sabemos exatamente no que pisamos na rua. Você pode levar para dentro da sua casa o vírus, mas também bactérias e vermes que podem ser prejudiciai à sua família a até mesmo aos pets (caso tenha)
+        Em 2° lugar, é importante passar o álcool gel pois você provavelmente precisará abrir alguma porta, ou pegar em alguma coisa. O ideal seria não encostar nada, mas temos que ser realistas e sabemos que não.
+        Em 3° lugar, separar as roupas das demais, é importante não deixar ela jogada ou em contato com outras coisas. Baseado em pesquisas sobre patógenos, acreditam que o COVID-19 de maneira geral pode sobreviver em tecidos de 72 a 96 horas.
         Em 4° lugar, tome um banho. Mande para o ralo qualquer vestígio do vírus, e tome um belo de um banho.
         `.yellow
         );
@@ -148,19 +154,22 @@ class Fase1 extends Fase {
     this.helper.Sleep(1000);
     console.log(`São ${this.relogio.MostrarHora()}`);
     console.log(
-      `${this.personagem.nome} se sente candado(a), e pensa "Melhor procurar alguma coisa para comer e descansar...`
+      `${this.personagem.nome} se sente cansado(a), e pensa "Melhor procurar alguma coisa para comer e descansar..."`
         .blue
     );
     this.helper.Sleep(1000);
     console.log("Qual a sua escolha? ".blue);
     this.helper.Sleep(1000);
-    const acao4 = +prompt(` 
+    const acao4 = this.helper.ValidaEntrada(
+      ` 
     
 [1] Procurar na geladeira
 [2] Pedir comida
 [3] Fazer comida
 
--> `);
+-> `,
+      [1, 2, 3]
+    );
     if (acao4 == 1) {
       if (this.fezCompras) {
         this.helper.Sleep(1000);
@@ -181,7 +190,7 @@ class Fase1 extends Fase {
       if (this.fezCompras) {
         this.helper.Sleep(1000);
         console.log(
-          `"Realmente tenho que parar de pedir comida mesmo tendo coisas em casa, assim eu vou falir!', pesna ${this.personagem.nome}. E mais uma vez pede uma comida mexicana no app\n`
+          `"Realmente tenho que parar de pedir comida mesmo tendo coisas em casa, assim eu vou falir!', pensa ${this.personagem.nome}. E mais uma vez pede uma comida mexicana no app\n`
             .blue
         );
         this.personagem.MudaFome(15);
@@ -226,7 +235,7 @@ class Fase1 extends Fase {
     console.log(
       `
 
-${this.personagem.nome} vai até a cozinha ver se tem alguma coisa para comer, olha geladeira que esta praticamente vazia. No fundo da geladeira encontra um pão de forma velho. O que você faz:`
+${this.personagem.nome} vai até a cozinha ver se tem alguma coisa para comer, olha geladeira que está praticamente vazia. No fundo da geladeira encontra um pão de forma velho. O que você faz:`
         .blue
     );
 
@@ -234,12 +243,15 @@ ${this.personagem.nome} vai até a cozinha ver se tem alguma coisa para comer, o
         
             [1] Esquenta o pão velho na frigideira e come, afinal é melhor não sair, os mercados são muito cheios
             [2] Resolve ir no mercado, afinal, precisa escolher os produtos e não aguenta mais ficar em casa. 
-            [3] Pede comida no Ifood, ${this.personagem.nome} está com muita fome, não quer comer aquele pão velho, e é mais rapido e seguro do quer até o mercado. 
+            [3] Pede comida no Ifood, ${this.personagem.nome} está com muita fome, não quer comer aquele pão velho, e é mais rapido e seguro do que ir até o mercado. 
             [4] Faz uma compra online de mercado, como são muitos itens, seria uma saída demorada ir comprar.
             `);
 
-    const acao = +prompt(`
--> `);
+    const acao = this.helper.ValidaEntrada(
+      `
+-> `,
+      [1, 2, 3, 4]
+    );
 
     this.helper.Sleep(1000);
     if (acao == 1) {
@@ -267,7 +279,7 @@ ${this.personagem.nome} vai até a cozinha ver se tem alguma coisa para comer, o
       this.relogio.AvancaTempo(240);
     } else if (acao == 3) {
       console.log(
-        `Olhando as opções ${this.personagem.nome} escolhe pegar um misto quente com suco, 'Com a barriga cheia pode pensar melhor o que fazer no dia', pensa ${this.personagem.nome}. O lanche demora um pouco mais a chegar,e assim que chega ele(a) devora rapidamente. `
+        `Olhando as opções ${this.personagem.nome} escolhe pegar um misto quente com suco, 'Com a barriga cheia pode pensar melhor o que fazer no dia', pensa ${this.personagem.nome}. O lanche demora um pouco mais a chegar, e assim que chega ele(a) devora rapidamente. `
           .blue
       );
       this.relogio.AvancaTempo(210);
@@ -275,7 +287,7 @@ ${this.personagem.nome} vai até a cozinha ver se tem alguma coisa para comer, o
     } else {
       this.fezCompras = true;
       console.log(
-        `Melhor fazer uma listinha para passar alguns dias, pensa ${this.personagem.nome}. Assim que o entregador aparece ${this.personagem.nome} pega um pano e o alcool em gel e passa nas embalagens antes de coloca-las para dentro.Em seguida faz um lanche caprichado e come rapidamente. A limpeza das embalagens é muito importante pois outras pessoas tiveram contato. Com essa ação o nível de possível contagio é mínimo.`
+        `Melhor fazer uma listinha para passar alguns dias, pensa ${this.personagem.nome}. Assim que o entregador aparece ${this.personagem.nome} pega um pano e o alcool em gel e passa nas embalagens antes de coloca-las para dentro. Em seguida faz um lanche caprichado e come rapidamente. A limpeza das embalagens é muito importante pois outras pessoas tiveram contato. Com essa ação o nível de possível contagio é mínimo.`
           .blue
       );
       this.relogio.AvancaTempo(240);
@@ -316,7 +328,7 @@ ${this.personagem.nome} vai até a cozinha ver se tem alguma coisa para comer, o
       }
       if (filtraAlcool.length > 0 && filtraMascara.length > 0) {
         console.log(
-          `Com essa duas proteções reduz a chances de contágio em cerca de 87%. Não se esqueça de também levar as mãos ao rosto, simples atitudes podem ajudar a manter o vírus afastado.\n`
+          `Com essa duas proteções se reduz as chances de contágio em cerca de 87%. Não se esqueça de também de não levar as mãos ao rosto, simples atitudes podem ajudar a manter o vírus afastado.\n`
             .blue
         );
       }

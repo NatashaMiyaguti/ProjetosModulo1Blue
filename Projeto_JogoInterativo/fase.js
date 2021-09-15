@@ -7,6 +7,3 @@ class Fase {
 }
 
 module.exports = Fase;
-
-// this.helper.Sleep(1000);
-// console.clear();

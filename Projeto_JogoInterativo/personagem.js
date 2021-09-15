@@ -53,7 +53,7 @@ Fome: ${this.fome}
           .yellow
       );
     }
-
+    this.helper.Sleep(20000);
     console.clear();
     this.helper.Sleep(2000);
     console.log("\nFIQUE POR DENTRO.\n".red);
