@@ -16,12 +16,11 @@
 //  ● O total de votos em branco;
 //  ● Qual candidato venceu a votação
 
-
 const color = require("colors"); //colocando cores nas strings
 const prompt = require("prompt-sync")();
 const _ = require("lodash"); //vamos usar a função groupBy pra agrupar pelo numero jogado no dado
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); //criando uma função sleep
-const exibirResultados = async (candidatos) => {
+const exibirResultados = (candidatos) => {
   let ranking_final = _.groupBy(candidatos, "voto");
 
   let votos = Object.keys(ranking_final);
@@ -89,7 +88,7 @@ const exibirResultados = async (candidatos) => {
   }
 };
 
-const election = async () => {
+const election = () => {
   //criando função assíncrona para usar a função sleep.
 
   var anoAtual = new Date().getFullYear();
@@ -110,7 +109,6 @@ const election = async () => {
   
   `);
 
-  
   await sleep(2000);
   let candidatos = [
     { nome: "Joao", voto: 0, numero: 1 },
@@ -134,7 +132,7 @@ const election = async () => {
   function votacao(autorizacao, voto) {
     if (!(voto in [1, 2, 3, 4, 5, 6])) {
       //verifica se o numero não esta dentro da lista
-      console.log("Opção inválida". blue);
+      console.log("Opção inválida".blue);
     } else if (autorizacao == "OPCIONAL" || autorizacao == "OBRIGATORIO") {
       console.log(`\nVoto computado.\n  Obrigada.\n`);
       let candidato = candidatos.find((x) => x.numero === voto);

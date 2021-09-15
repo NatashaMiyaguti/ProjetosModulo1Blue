@@ -1,8 +1,7 @@
-
 const color = require("colors"); //colocando cores nas strings
 const prompt = require("prompt-sync")();
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); //criando uma função sleep
-const jogojokenpo = async () => {
+const jogojokenpo = () => {
   //criando função assíncrona para usar a função sleep.
 
   while (true) {
