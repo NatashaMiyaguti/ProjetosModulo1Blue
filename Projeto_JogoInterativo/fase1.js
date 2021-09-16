@@ -11,8 +11,7 @@ class Fase1 extends Fase {
     this.fezCompras = false;
   }
 
-  Jogar() {
-    // metodo que roda o jogo
+  Jogar() {                        // metodo que roda o jogo
     this.personagem.MostrarStatus();
     this.relogio.MostrarStatus();
 

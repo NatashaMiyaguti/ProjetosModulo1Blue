@@ -14,8 +14,8 @@ const jogoInterativo = () => {
     `);
   helper.Sleep(2000);
   const relogio = new Relogio();
-  // const nome = prompt("Digite o nome do seu personagem: ");
-  const personagem = new Personagem("Natasha");
+  const nome = prompt("Digite o nome do seu personagem: ").toUpperCase();
+  const personagem = new Personagem(nome);
   const fase1 = new Fase1(personagem, relogio);
   fase1.Jogar();
 };
